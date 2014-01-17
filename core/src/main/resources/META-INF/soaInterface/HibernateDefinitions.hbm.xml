@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-lazy="false" catalog="SOA_Interface" schema="dbo">
+
+    <sql-query name="domain.businessEvent.toProcess" callable="true">
+        <return-scalar column="beId" type="java.lang.Integer" />
+        <return-scalar column="beDataId" type="java.lang.Integer" />
+        <return-scalar column="eventTypeId" type="java.lang.Short" />
+        <return-scalar column="eventDate" type="java.util.Date" />
+        <return-scalar column="eventSeqNo" type="java.lang.Integer" />
+        {call Get_Business_Events(?)}
+    </sql-query>
+
+    <sql-query name="domain.businessEvent.agreementKey" callable="true">
+        <return-scalar column="agreementId" type="java.lang.Integer" />
+        <return-scalar column="recordId" type="java.lang.Integer" />
+        {call Get_Agreement_Key(?)}
+    </sql-query>
+
+    <sql-query name="domain.businessEvent.customerKey" callable="true">
+        <return-scalar column="customerId" type="java.lang.Integer" />
+        <return-scalar column="recordId" type="java.lang.Integer" />
+        <return-scalar column="agreementId" type="java.lang.Integer" />
+        <return-scalar column="arn" type="java.lang.String" />
+        <return-scalar column="crn" type="java.lang.String" />
+        {call Get_Customer_Key(?, ?)}
+    </sql-query>
+    
+    <sql-query name="domain.businessEvent.vehicleKey" callable="true">
+        <return-scalar column="agreementId" type="java.lang.Integer" />
+        <return-scalar column="assetNumber" type="java.lang.Integer" />
+        <return-scalar column="vehicleRecordId" type="java.lang.Integer" />
+        <return-scalar column="agreementRecordId" type="java.lang.Integer" />
+        <return-scalar column="registrationNumber" type="java.lang.String" />
+        {call Get_Vehicle_Key(?)}
+    </sql-query>    
+
+    <sql-query name="domain.businessEvent.scanningKey" callable="true">
+        <return-scalar column="docNumber" type="java.lang.String" />
+        {call Get_Scanning_Key(?)}
+    </sql-query>
+    
+    <sql-query name="domain.businessEvent.data.update" callable="false">
+        {call Update_Business_Event_Data(?, ?)}
+    </sql-query>
+
+
+    <sql-query name="domain.businessEvent.job.update" callable="true">
+        <return-scalar column="lastRunDate" type="java.util.Date" />
+        {call Update_Last_Run_Date_Soa_Interface_Jobs(?, ?)}
+    </sql-query>
+    
+    <sql-query name="domain.businessEvent.agreeement.info" callable="true">
+        {call Apollo_Get_Agreement_Info(?,?)}
+    </sql-query>
+
+    <sql-query name="domain.businessEvent.agreeement.supplementinfo" callable="true">
+        {call Apollo_Get_Agreement_Supplement_Info(?)}
+    </sql-query>
+
+    <sql-query name="domain.businessEvent.checkEventProcessing" callable="true">
+    <return-scalar column="recordsFound" type="java.lang.Integer" />
+        {call Check_Event_Processing(?)}
+    </sql-query>
+
+    <sql-query name="domain.businessEvent.agreeement.previousParties" callable="true">
+        {call Apollo_Get_Agreement_Previous_Parties(?)}
+    </sql-query>
+    
+    <sql-query name="get_updated_vehicle">
+    SELECT 	cast(record_state as varchar(1)) as record_state,
+    		record_id,
+    		record_date,
+    		asset_number,
+    		translease_leaseco_ref,
+    		cast(car_registration_number as varchar(8)) as car_registration_number,
+    		stock_id,
+    		cast(fleetnet_edi_code as varchar(8)) as fleetnet_edi_code,
+    		icme_model_code,
+    		badged_company,
+    		vehicle_band_rating,
+    		cast(customer_number as varchar(10)) as customer_number,
+    		cast(vin_number as varchar(17)) as vin_number,
+    		cast(vehicle_colour as varchar(10)) as vehicle_colour,
+    		cast(initial_service_free as varchar(1)) as initial_service_free,
+			initial_service_period,
+			initial_service_distance,
+			standard_service_period,
+			standard_service_distance,
+			replacement_date,
+			replacement_mileage,
+			cast(ref_all_indicator as varchar(1)) as ref_all_indicator,
+			warranty_distance,
+			free_service_period,
+			free_service_distance,
+			odometer_repl_reading,
+			contract_start_date,
+			first_reg_date,
+			referral_value,
+			cast(special_information as varchar(75)) as special_information,
+			cast(high_mileage_indicator as varchar(1)) as high_mileage_indicator,
+			cast(contract_type as varchar(1)) as contract_type,
+			cast(controller_id as varchar(10)) as controller_id,
+			maintenance_budget,
+			maintenance_cost_total,
+			cast(transmission_action as varchar(1)) as transmission_action,
+			agreement_status,
+			suspended,
+			ineligible,
+			ineligible_reason_id,
+			repurchase_date,
+			heavy_accident_damage,
+			cast(adapted as varchar(1)) as adapted,
+			warranty_expiry_date FROM UPDATED_VEHICLE WHERE RECORD_ID=?
+    </sql-query>
+        
+    
+</hibernate-mapping>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:complexType name="agreementEvent">
+    <xs:sequence>
+      <xs:element name="agreementId" type="xs:int" minOccurs="0"/>
+      <xs:element name="agreementStatus" type="agreementStatus" minOccurs="0"/>
+      <xs:element name="appointeeReferenceNumber" type="xs:string" minOccurs="0"/>
+      <xs:element name="arn" type="xs:string" minOccurs="0"/>
+      <xs:element name="assetNumber" type="xs:string" minOccurs="0"/>
+      <xs:element name="assetType" type="assetType" minOccurs="0"/>
+      <xs:element name="customerCRN" type="xs:string" minOccurs="0"/>
+      <xs:element name="driver1ReferenceNumber" type="xs:string" minOccurs="0"/>
+      <xs:element name="driver2ReferenceNumber" type="xs:string" minOccurs="0"/>
+      <xs:element name="endDate" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="eventDate" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="eventId" type="xs:string" minOccurs="0"/>
+      <xs:element name="handbackDealer" type="xs:string" minOccurs="0"/>
+      <xs:element name="jointAppointeeReferenceNumber" type="xs:string" minOccurs="0"/>
+      <xs:element name="jointCustomerCRN" type="xs:string" minOccurs="0"/>
+      <xs:element name="managingDealer" type="xs:string" minOccurs="0"/>
+      <xs:element name="recordId" type="xs:int" minOccurs="0"/>
+      <xs:element name="schemeType" type="schemeType" minOccurs="0"/>
+      <xs:element name="startDate" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="supplyingDealer" type="xs:string" minOccurs="0"/>
+      <xs:element name="terminationReason" type="terminationType" minOccurs="0"/>
+      <xs:element name="type" type="agreementEventType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="agreementStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NEW"/>
+      <xs:enumeration value="PENDING"/>
+      <xs:enumeration value="LIVE"/>
+      <xs:enumeration value="TERMINATED"/>
+      <xs:enumeration value="PRE_LIVE"/>
+      <xs:enumeration value="RETURNED"/>
+      <xs:enumeration value="RECEIVED"/>
+      <xs:enumeration value="ELIGIBILITY"/>
+      <xs:enumeration value="CONFIRMED"/>
+      <xs:enumeration value="HANDOVER"/>
+      <xs:enumeration value="VOIDED"/>
+      <xs:enumeration value="EXPIRED"/>
+      <xs:enumeration value="CANCELLED"/>
+      <xs:enumeration value="CANCELLATION_IN_PROGRESS"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="assetType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="POWERED_WHEELCHAIR"/>
+      <xs:enumeration value="SCOOTER"/>
+      <xs:enumeration value="CAR"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="schemeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CAR"/>
+      <xs:enumeration value="PWS"/>
+      <xs:enumeration value="CAR_PWS"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="terminationType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="VMS_DEATH"/>
+      <xs:enumeration value="VMS_INSURANCE"/>
+      <xs:enumeration value="VMS_STOPPED_ALLOWANCE"/>
+      <xs:enumeration value="VOLUNTARY"/>
+      <xs:enumeration value="HP_50_SETTLEMENT"/>
+      <xs:enumeration value="HP_FULL_SETTLEMENT"/>
+      <xs:enumeration value="DEATH"/>
+      <xs:enumeration value="DEATH_NO_REFUND"/>
+      <xs:enumeration value="MECHANICAL_FAILURE"/>
+      <xs:enumeration value="HEALTH_NO_SECOND_CAR"/>
+      <xs:enumeration value="FINANCIAL_HARDSHIP_REFUND"/>
+      <xs:enumeration value="NO_DRIVER"/>
+      <xs:enumeration value="EX_REFUND"/>
+      <xs:enumeration value="FINANCIAL_HARDSHIP_NO_REFUND"/>
+      <xs:enumeration value="EX_NO_REFUND"/>
+      <xs:enumeration value="EX_COSTS_NO_REFUND"/>
+      <xs:enumeration value="INS_WRITE_OFF"/>
+      <xs:enumeration value="STOPPED_ALLOWANCE_NO_REFUND"/>
+      <xs:enumeration value="HEALTH_SECND_CAR"/>
+      <xs:enumeration value="EX_COSTS_REFUND"/>
+      <xs:enumeration value="UNSUITABLE_VEHICLE"/>
+      <xs:enumeration value="XS_MILEAGE"/>
+      <xs:enumeration value="STOPPED_ALLOWANCE_REFUND"/>
+      <xs:enumeration value="ABANDONED_VEHICLE"/>
+      <xs:enumeration value="INSURANCE_BREACHES"/>
+      <xs:enumeration value="CRIMINAL_ACTIVITY"/>
+      <xs:enumeration value="CONTRACTUAL_BREACHES"/>
+      <xs:enumeration value="REPUDIATIONS"/>
+      <xs:enumeration value="CANCELLATION_NO_ASSET"/>
+      <xs:enumeration value="TERMINATED_ALTERNATIVE_TRANSPORT"/>
+      <xs:enumeration value="EXPIRY"/>
+      <xs:enumeration value="UNKNOWN"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="agreementEventType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NEW_APPLICATION"/>
+      <xs:enumeration value="VOID"/>
+      <xs:enumeration value="AMENDMENT"/>
+      <xs:enumeration value="NOVATION"/>
+      <xs:enumeration value="EXPIRED"/>
+      <xs:enumeration value="LIVE"/>
+      <xs:enumeration value="CANCELLATION"/>
+      <xs:enumeration value="EARLY_TERMINATION"/>
+      <xs:enumeration value="REINSTATEMENT"/>
+      <xs:enumeration value="HANDOVER"/>
+      <xs:enumeration value="BACK_DATED_AGREEMENT"/>
+      <xs:enumeration value="UNKNOWN"/>
+      <xs:enumeration value="CONFIRMATION"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+

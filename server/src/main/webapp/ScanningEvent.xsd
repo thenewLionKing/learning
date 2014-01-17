@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<xs:schema targetNamespace="http://xmlns.mo.co.uk/mercury/outbound/ScanningEvent" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://xmlns.mo.co.uk/mercury/outbound/ScanningEvent" elementFormDefault="qualified">
+	<xs:complexType name="ScanningEventType">
+		<xs:sequence>
+			<xs:element name="docNumber" type="xs:string" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ScanningEvent" type="ScanningEventType"/>
+</xs:schema>

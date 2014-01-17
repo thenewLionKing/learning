@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+
+    <persistence-unit name="localEnterprisePersistenceUnit" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <class>uk.co.mo.app.mercury.domain.agreement.entity.AgreementEntity</class>
+        <class>uk.co.mo.app.mercury.domain.agreement.entity.VoidAgreementEntity</class>
+        <class>uk.co.mo.app.mercury.domain.customer.entity.CustomerEntity</class>
+        <class>uk.co.mo.app.mercury.domain.agreement.entity.AgreementProductEntity</class>
+        <class>uk.co.mo.app.mercury.domain.agreement.entity.AgreementCP50SafeDateEntity</class>
+        <class>uk.co.mo.app.mercury.domain.agreement.entity.AgreementDeliveryDateHistoryEntity</class>
+        <class>uk.co.mo.app.mercury.domain.agreement.entity.AgreementProductCustomisationEntity</class>
+        <class>uk.co.mo.app.mercury.domain.agreement.entity.AgreementNominatedDriverEntity</class>
+        <class>uk.co.mo.app.mercury.domain.agreement.entity.ShortTermLeaseExtensionPwsEntity</class>
+        <class>uk.co.mo.app.mercury.domain.product.entity.BasicColourEntity</class>
+        <class>uk.co.mo.app.mercury.domain.product.entity.ProductClassificationEntity</class>
+        <class>uk.co.mo.app.mercury.domain.product.entity.ProductMakeEntity</class>
+        <class>uk.co.mo.app.mercury.domain.product.entity.ProductModelEntity</class>
+        <class>uk.co.mo.app.mercury.domain.product.entity.ProductRangeEntity</class>
+        <class>uk.co.mo.app.mercury.domain.product.entity.ProductTypeEntity</class>
+        <class>uk.co.mo.app.mercury.domain.product.entity.ProductTypeMakeEntity</class>
+        <class>uk.co.mo.app.mercury.domain.product.pricing.entity.ProductPriceProfileEntity</class>
+        <class>uk.co.mo.app.mercury.domain.product.pricing.entity.BenifitTypeEntity</class>
+        <class>uk.co.mo.app.mercury.domain.product.pricing.entity.HireTermEntity</class>
+        <class>uk.co.mo.app.mercury.domain.product.pricing.entity.ProductOfferingDealerEntity</class>
+        <class>uk.co.mo.app.mercury.domain.product.pricing.entity.ProductOfferingEntity</class>
+        <class>uk.co.mo.app.mercury.domain.product.pricing.entity.ProductOfferingOptionEntity</class>
+        <class>uk.co.mo.app.mercury.domain.product.pricing.entity.ProductOptionTypeEntity</class>
+        <class>uk.co.mo.app.mercury.domain.product.pricing.entity.ProfileTypeEntity</class>
+        <class>uk.co.mo.app.mercury.domain.pin.entity.PinEntity</class>
+        <class>uk.co.mo.app.mercury.domain.pin.entity.AgreementCustomerEsignaturePinEntity</class>
+        <class>uk.co.mo.app.mercury.domain.pin.entity.PinAuthenticationAuditEntity</class>
+        <class>uk.co.mo.app.mercury.domain.pin.entity.PinRequestAuditEntity</class>
+        <class>uk.co.mo.app.mercury.domain.pin.entity.PinRequestReasonEntity</class>
+        <class>uk.co.mo.app.mercury.domain.pin.entity.PinTypeEntity</class>
+        <class>uk.co.mo.app.mercury.domain.org.dealer.entity.MaintenanceAgentMaagEntity</class>
+        <class>uk.co.mo.app.mercury.domain.org.dealer.entity.DealerCoverageEntity</class>
+        <class>uk.co.mo.app.mercury.domain.org.dealer.entity.DealerFcsDateEntity</class>
+        <class>uk.co.mo.app.mercury.domain.org.dealer.entity.DealerGroupDealersLinkEntity</class>
+        <class>uk.co.mo.app.mercury.domain.org.dealer.entity.MaintenanceAgentExtraEntity</class>
+        <class>uk.co.mo.app.mercury.domain.org.dealer.entity.DealerProductTypeEntity</class>
+        <class>uk.co.mo.app.mercury.domain.org.manufacturer.entity.ManufacturersEntity</class>
+        <class>uk.co.mo.app.mercury.domain.vehicle.entity.VehicleEntity</class>
+        <class>uk.co.mo.app.mercury.domain.vehicle.entity.AdaptAdaptationGroupEntity</class>
+        <class>uk.co.mo.app.mercury.domain.vehicle.entity.AdaptAdaptationEntity</class>
+        <class>uk.co.mo.app.mercury.domain.vehicle.entity.AdaptFitterEntity</class>
+        <class>uk.co.mo.app.mercury.domain.vehicle.entity.AdaptManufacturerEntity</class>
+        <class>uk.co.mo.app.mercury.domain.vehicle.entity.AgreementAdaptationEntity</class>
+        <class>uk.co.mo.app.mercury.domain.customer.entity.VrmCustomerSuspensionEntity</class>
+        <class>uk.co.mo.app.mercury.domain.customer.entity.VrmCustomerSuspensionReasonEntity</class>  
+        <class>uk.co.mo.app.mercury.domain.customer.entity.CustomerDlaAwardEntity</class>
+		<class>uk.co.mo.app.mercury.domain.org.dealer.entity.DealerPersonnelDealerLinkEntity</class>
+		<class>uk.co.mo.app.mercury.domain.org.dealer.entity.DealerPersonnelDealerLinkEntityPK</class>
+		<class>uk.co.mo.app.mercury.domain.org.dealer.entity.DealerPersonnelEntity</class>
+		<class>uk.co.mo.app.mercury.domain.org.dealer.entity.DealerPersonnelTrainingEntity</class>
+
+
+		<class>uk.co.mo.app.mercury.domain.translease.invoice.entity.TlInvoiceCreditEntity</class>
+		<class>uk.co.mo.app.mercury.domain.translease.invoice.entity.TlItemLineEntity</class>
+		<class>uk.co.mo.app.mercury.domain.translease.invoice.entity.TlItemLinePKEntity</class>
+		<class>uk.co.mo.app.mercury.domain.translease.invoice.entity.TlPartsDetailEntity</class>
+		<class>uk.co.mo.app.mercury.domain.translease.invoice.entity.TlPartsDetailPKEntity</class>
+		<class>uk.co.mo.app.mercury.domain.translease.invoice.entity.TlVatSummaryEntity</class>
+		<class>uk.co.mo.app.mercury.domain.translease.invoice.entity.TlVatSummaryPKEntity</class>
+
+		<class>uk.co.mo.app.mercury.domain.translease.transaction.entity.TlTransactionEntity</class>
+		<class>uk.co.mo.app.mercury.domain.vehicle.entity.AdaptFittersContactEntity</class>
+		<class>uk.co.mo.app.mercury.domain.vehicle.entity.AdaptFittersContactEntityPK</class>
+		<class>uk.co.mo.app.mercury.domain.vehicle.entity.AdaptFitterEntity</class>
+		<class>uk.co.mo.app.mercury.domain.org.dealer.entity.DealerGroupEntity</class>
+
+		<class>uk.co.mo.app.mercury.domain.translease.tyre.entity.TlTyrePKEntity</class>
+		<class>uk.co.mo.app.mercury.domain.translease.tyre.entity.TlTyreEntity</class>
+		<class>uk.co.mo.app.mercury.domain.translease.tyre.entity.TlTyreItemPKEntity</class>
+		<class>uk.co.mo.app.mercury.domain.translease.tyre.entity.TlTyreItemEntity</class>
+		<class>uk.co.mo.app.mercury.domain.translease.tyre.entity.TlFastFitProductEntity</class>
+		<class>uk.co.mo.app.mercury.domain.translease.tyre.entity.TlNonTyreItemPKEntity</class>
+		<class>uk.co.mo.app.mercury.domain.translease.tyre.entity.TlNonTyreItemEntity</class>
+
+		<class>uk.co.mo.app.mercury.domain.translease.vcd.entity.TlVcdEntity</class>
+		<class>uk.co.mo.app.mercury.domain.translease.vcd.entity.TlVcdConditionLinePKEntity</class>
+		<class>uk.co.mo.app.mercury.domain.translease.vcd.entity.TlVcdConditionLineEntity</class>
+
+		<class>uk.co.mo.app.mercury.domain.serviceagent.entity.ServiceAgentEntity</class>
+		<class>uk.co.mo.app.mercury.domain.serviceagent.entity.AgentBandRatingEntity</class>
+		<class>uk.co.mo.app.mercury.domain.serviceagent.entity.AgentBandRatingPKEntity</class>
+		<class>uk.co.mo.app.mercury.domain.serviceagent.entity.TlSpecialPartEntity</class>
+		<class>uk.co.mo.app.mercury.domain.serviceagent.entity.TlSpecialPartPKEntity</class>
+		<class>uk.co.mo.app.mercury.domain.vehicle.entity.VrmStockEntity</class>
+		<class>uk.co.mo.app.mercury.domain.vehicle.entity.VrmHandbackEntity</class>
+		<class>uk.co.mo.app.mercury.domain.vehicle.entity.VrmMoveTypeEntity</class>
+		<class>uk.co.mo.app.mercury.domain.vehicle.entity.VrmLocationEntity</class>
+		<class>uk.co.mo.app.mercury.domain.vehicle.entity.VrmStockDescriptionEntity</class>
+		<class>uk.co.mo.app.mercury.domain.vehicle.entity.VrmHandbackDetailsHistoryEntity</class>
+		<class>uk.co.mo.app.mercury.domain.vehicle.entity.VrmMoveEntity</class>
+		<class>uk.co.mo.app.mercury.domain.vehicle.entity.VrmOrganisationEntity</class>
+		<class>uk.co.mo.app.mercury.domain.vehicle.entity.VrmOrganisationLinkAgentEntity</class>
+		<class>uk.co.mo.app.mercury.domain.vehicle.entity.VrmSoldEntity</class>
+		<class>uk.co.mo.app.mercury.domain.vehicle.entity.ManufacturerCodeEntity</class>
+		<class>uk.co.mo.app.mercury.domain.vehicle.entity.LeaseVehicleModelEntity</class>
+		<class>uk.co.mo.app.mercury.domain.vehicle.entity.ProfilesEntity</class>
+		<class>uk.co.mo.app.mercury.domain.agreement.entity.AgreementDealerEntity</class>
+		<class>uk.co.mo.app.mercury.domain.vehicle.entity.ModelCodeEntity</class>
+		<class>uk.co.mo.app.mercury.domain.vehicle.entity.TransmissionCodeEntity</class>
+		<class>uk.co.mo.app.mercury.domain.vehicle.entity.TransTypeCodeEntity</class>
+		<class>uk.co.mo.app.mercury.domain.vehicle.entity.ModelCodeEntity</class>
+		<class>uk.co.mo.app.mercury.domain.product.pricing.entity.ProductPriceProfileEntity</class>
+		<class>uk.co.mo.app.mercury.domain.agreement.entity.AgreementExtensionEntity</class>
+		<class>uk.co.mo.app.mercury.domain.agreement.entity.AgreementExtensionAuditEntity</class>
+		<class>uk.co.mo.app.mercury.domain.vehicle.entity.VrmBvReturnEntity</class>
+		<class>uk.co.mo.app.mercury.domain.vehicle.entity.ModelDescriptionEntity</class>
+		<class>uk.co.mo.app.mercury.domain.vehicle.entity.VehicleColourEntity</class>
+		<class>uk.co.mo.app.mercury.domain.vehicle.entity.GlassPaintColourEntity</class>
+		<class>uk.co.mo.app.mercury.domain.vehicle.entity.VrmDeliveryTypeEntity</class>
+		<class>uk.co.mo.app.mercury.domain.vehicle.entity.VrmVcrGradeIdEntity</class>
+        <properties>
+<!--         	<property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+        	<property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://zn-viper-db01:6000;databaseName=Enterprise"/>
+      		<property name="javax.persistence.jdbc.password" value="viper01"/>
+      		<property name="javax.persistence.jdbc.user" value="jbvrm"/> -->
+      		
+            <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="validate"/>
+            <property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.cache.provider_class" value="org.hibernate.cache.HashtableCacheProvider"/>
+            <property name="hibernate.cache.use_second_level_cache" value="false"/>
+            <property name="hibernate.format_sql" value="true" />
+            <property name="hibernate.use_sql_comments" value="true" />
+            <property name="hibernate.connection.release_mode" value="after_transaction" />
+        </properties>
+    </persistence-unit>
+
+<!--     <persistence-unit name="DRSLondonPersistenceUnit" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <class>uk.co.mo.app.mercury.domain.scanning.entity.ProfileEntity</class>
+
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="validate"/>
+            <property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.cache.provider_class" value="org.hibernate.cache.HashtableCacheProvider"/>
+            <property name="hibernate.cache.use_second_level_cache" value="false"/>
+            <property name="hibernate.format_sql" value="true" />
+            <property name="hibernate.use_sql_comments" value="true" />
+            <property name="hibernate.connection.release_mode" value="after_transaction" />
+        </properties>
+    </persistence-unit> -->
+
+</persistence>

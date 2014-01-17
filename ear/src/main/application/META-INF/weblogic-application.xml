@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<weblogic-application xmlns="http://www.bea.com/ns/weblogic/90"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.bea.com/ns/weblogic/90 http://www.bea.com/ns/weblogic/920/weblogic-application.xsd">
+
+    <classloader-structure>
+        <module-ref>
+            <module-uri>mercury-ejb.jar</module-uri>
+        </module-ref>
+        <classloader-structure>
+            <module-ref>
+                <module-uri>mercury-web.war</module-uri>
+            </module-ref>
+        </classloader-structure>
+    </classloader-structure>
+    <prefer-application-packages>
+		<package-name>antlr.*</package-name>
+        <package-name>org.springframework.*</package-name>
+        <package-name>org.apache.xerces.*</package-name>
+	</prefer-application-packages>
+
+</weblogic-application>

@@ -1,0 +1,60 @@
+# Database driver
+#database.driver=com.jnetdirect.jsql.JSQLDriver
+database.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+# Datasource pooling
+#database.xaPoolDataSource=org.enhydra.jdbc.pool.StandardXAPoolDataSource
+
+
+# Enterprise database
+#database.enterprise.url=jdbc:sqlserver://zn-viper-db01:6000;databaseName=Enterprise;lockTimeout=5000;sendStringParametersAsUnicode=false;
+#database.enterprise.username=jbvrm
+#database.enterprise.password=viper01
+database.enterprise.url=jdbc:sqlserver://zn-polo-db01.mfltest.co.uk:6000;databaseName=Enterprise;lockTimeout=5000;sendStringParametersAsUnicode=false;
+database.enterprise.username=jbmerc
+database.enterprise.password=polo01
+database.enterprise.asciiStringParameters=1
+database.enterprise.disableStatementPooling=1
+database.enterprise.logfile=enterprise.txt
+database.enterprise.minPoolSize=0
+database.enterprise.maxPoolSize=50
+
+# Feed interface database
+database.feedInterface.url=jdbc:sqlserver://zn-polo-db01.mfltest.co.uk:6000;databaseName=Feed_Interface;lockTimeout=5000;sendStringParametersAsUnicode=false;
+database.feedInterface.username=jbmerc
+database.feedInterface.password=polo01
+database.feedInterface.asciiStringParameters=1
+database.feedInterface.disableStatementPooling=1
+database.feedInterface.logfile=feedinterface.txt
+database.feedInterface.minPoolSize=0
+database.feedInterface.maxPoolSize=50
+
+#Read only database
+database.enterpriseReadOnly.url=jdbc:sqlserver://zn-viper-db02:6001;databaseName=Enterprise_Readonly;lockTimeout=5000;sendStringParametersAsUnicode=false;
+database.enterpriseReadOnly.username=jbvrm
+database.enterpriseReadOnly.password=viper01
+database.enterpriseReadOnly.asciiStringParameters=1
+database.enterpriseReadOnly.disableStatementPooling=1
+database.enterpriseReadOnly.logfile=enterpriseReadOnly.txt
+database.enterpriseReadOnly.minPoolSize=0
+database.enterpriseReadOnly.maxPoolSize=50
+
+#Read only database
+database.soaInterface.url=jdbc:sqlserver://zn-polo-db08.mfltest.co.uk:6004;databaseName=SOA_Interface;lockTimeout=5000;sendStringParametersAsUnicode=false;
+database.soaInterface.username=jbmerc
+database.soaInterface.password=polo01
+database.soaInterface.asciiStringParameters=1
+database.soaInterface.disableStatementPooling=1
+database.soaInterface.logfile=soaInterface.txt
+database.soaInterface.minPoolSize=0
+database.soaInterface.maxPoolSize=50
+
+#Read only database
+database.drsLondon.url=jdbc:sqlserver://zn-polo-db02.mfltest.co.uk:6001;databaseName=DRS_London;lockTimeout=5000;sendStringParametersAsUnicode=false;
+database.drsLondon.username=jbmerc
+database.drsLondon.password=polo02
+database.drsLondon.asciiStringParameters=1
+database.drsLondon.disableStatementPooling=1
+database.drsLondon.logfile=drsLondon.txt
+database.drsLondon.minPoolSize=0
+database.drsLondon.maxPoolSize=50

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<e:MercuryEvent xmlns:e="http://xmlns.mo.co.uk/mercury/outbound/Event">
+    <e:event>
+        <agr:AgreementEvent xmlns:agr="http://xmlns.mo.co.uk/mercury/outbound/AgreementEvent">
+            <agr:arn>3434234234</agr:arn>
+            <agr:agreementId>3412321</agr:agreementId>
+            <agr:recordId>334545345</agr:recordId>
+            <agr:eventType>EARLY_TERMINATION</agr:eventType>
+        </agr:AgreementEvent>
+    </e:event>
+    <e:eventMetaData>
+        <e:event-id>12321</e:event-id>
+        <e:event-type-id>1</e:event-type-id>
+        <e:event-date>2011-06-24 12:45:47.913</e:event-date>
+    </e:eventMetaData>
+</e:MercuryEvent>

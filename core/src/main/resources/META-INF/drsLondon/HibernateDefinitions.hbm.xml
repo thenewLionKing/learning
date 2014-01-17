@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-lazy="false" catalog="DRS_London" schema="dbo">
+
+    <sql-query name="domain.scanning.documentPath" callable="false">
+        {call proc_path(?)}
+    </sql-query>
+	<sql-query name="get_profile">
+		SELECT da.application as applicationName, p.* FROM PROFILE p inner join drs_applications da 
+		on p.application = da.system_id 
+		WHERE p.docnumber= ?
+	</sql-query>
+
+    
+</hibernate-mapping>

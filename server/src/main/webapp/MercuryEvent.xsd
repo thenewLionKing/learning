@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<xs:schema targetNamespace="http://xmlns.mo.co.uk/mercury/outbound/Event" xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+xmlns="http://xmlns.mo.co.uk/mercury/outbound/Event" xmlns:me="http://xmlns.mo.co.uk/mercury/outbound/Event" 
+xmlns:ae="http://xmlns.mo.co.uk/mercury/outbound/AgreementEvent" xmlns:cus="http://xmlns.mo.co.uk/mercury/outbound/CustomerEvent" 
+xmlns:veh="http://xmlns.mo.co.uk/mercury/outbound/VehicleEvent" xmlns:sca="http://xmlns.mo.co.uk/mercury/outbound/ScanningEvent" elementFormDefault="qualified">
+	<xs:import namespace="http://xmlns.mo.co.uk/mercury/outbound/VehicleEvent" schemaLocation="VehicleEvent.xsd"/>
+	<xs:import namespace="http://xmlns.mo.co.uk/mercury/outbound/CustomerEvent" schemaLocation="CustomerEvent.xsd"/>
+	<xs:import namespace="http://xmlns.mo.co.uk/mercury/outbound/AgreementEvent" schemaLocation="AgreementEvent.xsd"/>
+	<xs:import namespace="http://xmlns.mo.co.uk/mercury/outbound/ScanningEvent" schemaLocation="ScanningEvent.xsd"/>
+	<xs:element name="MercuryEvent" type="me:EventType"/>
+	<xs:element name="EventMetaData" type="EventMetaData"/>
+	<xs:complexType name="EventMetaData">
+		<xs:sequence>
+			<xs:element name="event-date" type="xs:dateTime" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="event-id" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="event-type-id" type="xs:string" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="EventChoiceType" type="EventChoiceType"/>
+	<xs:complexType name="EventChoiceType">
+		<xs:choice>
+			<xs:element ref="ae:AgreementEvent" minOccurs="1" maxOccurs="1"/>
+			<xs:element ref="cus:CustomerEvent" minOccurs="1" maxOccurs="1"/>
+			<xs:element ref="veh:VehicleEvent" minOccurs="1" maxOccurs="1"/>
+			<xs:element ref="sca:ScanningEvent" minOccurs="1" maxOccurs="1"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:element name="EventType" type="EventType"/>
+	<xs:complexType name="EventType">
+		<xs:sequence>
+			<xs:element name="event" type="EventChoiceType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="eventMetaData" type="EventMetaData" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

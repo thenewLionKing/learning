@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jms="http://www.springframework.org/schema/jms"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:amq="http://activemq.apache.org/schema/core"
+       xmlns:sec="http://www.springframework.org/schema/security"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+      http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-3.0.xsd
+      http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core-5.2.0.xsd
+      http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd
+      http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+
+    <!--
+         This will automatically locate any and all property files you have
+         within your classpath, provided they fall under the META-INF/spring
+         directory. The located property files are parsed and their values can
+         then be used within application context files in the form of
+         ${propertyKey}.
+     -->
+    <context:property-placeholder location="classpath*:META-INF/spring/*.properties"/>
+
+    <!--
+         Turn on AspectJ @Configurable support. As a result, any time you
+         instantiate an object, Spring will attempt to perform dependency
+         injection on that object. This occurs for instantiation via the "new"
+         keyword, as well as via reflection. This is possible because AspectJ
+         is used to "weave" Roo-based applications at compile time. In effect
+         this feature allows dependency injection of any object at all in your
+         system, which is a very useful feature (without @Configurable you'd
+         only be able to dependency inject objects acquired from Spring or
+         subsequently presented to a specific Spring dependency injection
+         method). Roo applications use this useful feature in a number of
+         areas, such as @PersistenceContext injection into entities.
+     -->
+    <context:spring-configured/>
+
+    <!--
+         This declaration will cause Spring to locate every @Component,
+         @Repository and @Service in your application. In practical terms this
+         allows you to write a POJO and then simply annotate the new POJO as an
+         @Service and Spring will automatically detect, instantiate and
+         dependency inject your support at startup time. Importantly, you can
+         then also have your new support injected into any other class that
+         requires it simply by declaring a field for your support inside the
+         relying class and Spring will inject it. Note that two exclude filters
+         are declared. The first ensures that Spring doesn't spend time
+         introspecting Roo-specific ITD aspects. The second ensures Roo doesn't
+         instantiate your @Controller classes, as these should be instantiated
+         by a web tier application context. Refer to web.xml for more details
+         about the web tier application context setup services.
+
+         Furthermore, this turns on @Autowired, @PostConstruct etc support. These
+         annotations allow you to use common Spring and Java Enterprise Edition
+         annotations in your classes without needing to do any special configuration.
+         The most commonly used annotation is @Autowired, which instructs Spring to
+         dependency inject an object into your class.
+     -->
+    <context:component-scan base-package="uk.co.mo.app.mercury">
+        <context:exclude-filter expression=".*_Roo_.*" type="regex"/>
+        <context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
+    </context:component-scan>
+
+    <bean id="serverConfig" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="properties">
+            <props>
+                <prop key="app_ejb_event_scheduler_timer">${app.ejb.event.scheduler.timer}</prop>
+                <prop key="app_ejb_event_notification_timeout">${app.ejb.event.notification.timeout}</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- start of datasource conf -->
+
+    <bean abstract="true" id="enterpriseDS">
+        <property name="dataSource" ref="enterpriseDataSource"/>
+    </bean>
+    <bean id="enterpriseSessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"
+          parent="enterpriseDS">
+        <property name="mappingLocations">
+            <list>
+                <value>classpath*:META-INF/enterprise/**/HibernateDefinitions.hbm.xml</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean abstract="true" id="feedInterfaceDS">
+        <property name="dataSource" ref="feedInterfaceDataSource"/>
+    </bean>
+    <bean id="feedInterfaceSessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"
+          parent="feedInterfaceDS">
+        <property name="mappingLocations">
+            <list>
+                <value>classpath*:META-INF/feedInterface/**/HibernateDefinitions.hbm.xml</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+            </props>
+        </property>
+    </bean>
+
+
+    <bean abstract="true" id="enterpriseReadOnlyDS">
+        <property name="dataSource" ref="enterpriseReadOnlyDataSource"/>
+    </bean>
+    <bean id="readOnlySessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"
+          parent="enterpriseReadOnlyDS">
+        <property name="mappingLocations">
+            <list>
+                <value>classpath*:META-INF/enterprise/**/HibernateDefinitions.hbm.xml</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean abstract="true" id="soaInterfaceDS">
+        <property name="dataSource" ref="soaInterfaceDataSource"/>
+    </bean>
+
+    <bean id="soaInterfaceSessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"
+          parent="soaInterfaceDS">
+        <property name="mappingLocations">
+            <list>
+                <value>classpath*:META-INF/soaInterface/**/HibernateDefinitions.hbm.xml</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean abstract="true" id="drsLondonDS">
+        <property name="dataSource" ref="drsLondonDataSource"/>
+    </bean>
+    <bean id="drsLondonSessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"
+          parent="drsLondonDS">
+        <property name="mappingLocations">
+            <list>
+                <value>classpath*:META-INF/drsLondon/**/HibernateDefinitions.hbm.xml</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- start of JMS conf -->
+
+
+    <!--bean id="wlJndiTemplate" class="org.springframework.jndi.JndiTemplate">
+        <property name="environment">
+            <props>
+                <prop key="java.naming.factory.initial">weblogic.jndi.WLInitialContextFactory</prop>
+                <prop key="java.naming.provider.url">${jms.weblogic.url}</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="wlQueueConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiTemplate">
+            <ref bean="wlJndiTemplate"/>
+        </property>
+        <property name="jndiName">
+            <value>mercury/jms/MercuryJmsCF</value>
+        </property>
+    </bean>
+
+    <bean id="wlJmsDestinationResolver" class="org.springframework.jms.support.destination.JndiDestinationResolver">
+        <property name="jndiTemplate">
+            <ref bean="wlJndiTemplate"/>
+        </property>
+        <property name="cache">
+            <value>true</value>
+        </property>
+    </bean>
+
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory">
+            <ref bean="wlQueueConnectionFactory"/>
+        </property>
+        <property name="destinationResolver">
+            <ref bean="wlJmsDestinationResolver"/>
+        </property>
+    </bean>
+
+    <bean id="wlMercuryEventsQ" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiTemplate">
+            <ref bean="wlJndiTemplate"/>
+        </property>
+        <property name="jndiName">
+            <value>mercury/jms/MercuryEventsQ</value>
+        </property>
+    </bean-->
+
+    <!--bean id="wlMercuryEventsQListener" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="concurrentConsumers" value="5"/>
+        <property name="connectionFactory" ref="wlQueueConnectionFactory"/>
+        <property name="destination" ref="wlMercuryEventsQ"/>
+        <property name="messageListener" ref="testQListener"/>
+    </bean-->
+
+
+    <!-- CachingConnectionFactory Definition, sessionCacheSize property is the number of sessions to cache -->
+    <!-- creates an activemq connection factory using the amq namespace -->
+        <amq:connectionFactory id="amqConnectionFactory" brokerURL="${jms.url}" userName="${jms.username}"
+                               password="${jms.password}" transportListener="#jmsTransportListener"/>
+
+
+    <bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+        <constructor-arg ref="amqConnectionFactory"/>
+        <property name="exceptionListener" ref="jmsExceptionListener"/>
+        <property name="sessionCacheSize" value="50"/>
+    </bean>
+
+    <!-- JmsTemplate Definition -->
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <constructor-arg ref="connectionFactory"/>
+        <property name="defaultDestination">
+            <ref bean="destination"/>
+        </property>
+        <property name="sessionTransacted" value="true"/>
+    </bean>
+
+    <!-- Set the name of the queue destination -->
+    <bean id="destination" class="org.apache.activemq.command.ActiveMQQueue">
+        <!-- Set the Queue Name -->
+        <constructor-arg index="0">
+            <value>eds.document.queue?consumer.exclusive=true</value>
+        </constructor-arg>
+    </bean>
+
+    <bean id="agreementDestination" class="org.apache.activemq.command.ActiveMQTopic">
+        <!-- Set the Queue Name -->
+        <constructor-arg index="0">
+            <value>${eds.agreement.event.topic.name}</value>
+        </constructor-arg>
+    </bean>
+
+    <!-- listener container definition using the jms namespace, concurrency is the max number of concurrent listeners that can be started -->
+    <!--jms:listener-container concurrency="1-10" transaction-manager="transactionManager" cache="consumer">
+    </jms:listener-container-->
+
+
+    <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="enterpriseDataSource">
+        <property name="driverClassName" value="${database.driverClassName}"/>
+        <property name="url" value="${database.enterprise.url}"/>
+        <property name="username" value="${database.enterprise.username}"/>
+        <property name="password" value="${database.enterprise.password}"/>
+    </bean>
+
+    <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="feedInterfaceDataSource">
+        <property name="driverClassName" value="${database.driverClassName}"/>
+        <property name="url" value="${database.feedInterface.url}"/>
+        <property name="username" value="${database.feedInterface.username}"/>
+        <property name="password" value="${database.feedInterface.password}"/>
+    </bean>
+    <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="enterpriseReadOnlyDataSource">
+        <property name="driverClassName" value="${database.driverClassName}"/>
+        <property name="url" value="${database.enterpriseReadOnly.url}"/>
+        <property name="username" value="${database.enterpriseReadOnly.username}"/>
+        <property name="password" value="${database.enterpriseReadOnly.password}"/>
+    </bean>
+
+    <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="soaInterfaceDataSource">
+        <property name="driverClassName" value="${database.driverClassName}"/>
+        <property name="url" value="${database.soaInterface.url}"/>
+        <property name="username" value="${database.soaInterface.username}"/>
+        <property name="password" value="${database.soaInterface.password}"/>
+    </bean>
+   
+   <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="drsLondonDataSource">
+        <property name="driverClassName" value="${database.driverClassName}"/>
+        <property name="url" value="${database.drsLondon.url}"/>
+        <property name="username" value="${database.drsLondon.username}"/>
+        <property name="password" value="${database.drsLondon.password}"/>
+    </bean>
+    
+    <bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager">
+        <property name="entityManagerFactory" ref="localEntityManagerFactory"/>
+        <property name="defaultTimeout" value="30"/>
+    </bean>
+
+<!--     <bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManagerDRS">
+        <property name="entityManagerFactory" ref="localEntityManagerFactoryDRS"/>
+        <property name="defaultTimeout" value="30"/>
+    </bean> -->
+
+    <tx:annotation-driven mode="aspectj" transaction-manager="transactionManager" order="0"/>
+
+
+    <bean id="persistenceUnitManager" class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
+        <property name="persistenceXmlLocations">
+            <list>
+                <value>classpath:META-INF/spring/persistence.xml</value>
+                <value>classpath:META-INF/spring/persistenceDRS.xml</value>
+            </list>
+        </property>
+        <property name="dataSources" >
+			<map>
+    			<entry key="enterpriseDataSource" value-ref="enterpriseDataSource" />
+    			<entry key="drsLondonDataSource" value-ref="drsLondonDataSource" />
+   			</map>        
+        </property>
+        <property name="defaultDataSource" ref="enterpriseDataSource"/>
+     <!--    <property name="loadTimeWeaver">
+            <bean class="org.springframework.instrument.classloading.SimpleLoadTimeWeaver"/>
+        </property> -->
+	</bean>
+
+
+    <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="localEntityManagerFactory">
+        <property name="persistenceUnitManager" ref="persistenceUnitManager"/>
+        <property name="persistenceUnitName" value="localEnterprisePersistenceUnit"/>
+		
+<!--         <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+        </property> -->
+
+    </bean>
+
+<!--     <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="localEntityManagerFactoryDRS">
+          <property name="persistenceUnitManager" ref="persistenceUnitManager"/>
+	      <property name="persistenceUnitName" value="DRSLondonPersistenceUnit"/>
+    	  <property name="dataSource" ref="drsLondonDataSource"/>
+    	  
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+        </property>
+
+    </bean> -->
+
+
+    <!-- HTTP security configurations -->
+    <sec:http auto-config='true' create-session='never'>
+        <sec:intercept-url pattern="/**" access="ROLE_USER,ROLE_ADMIN"/>
+        <sec:http-basic/>
+    </sec:http>
+
+
+    <!-- Configure Authentication mechanism -->
+    <sec:authentication-manager alias="authenticationManager">
+        <sec:authentication-provider>
+            <sec:password-encoder hash="sha-256"/>
+            <sec:user-service>
+                <sec:user name="admin" password="eed0417df368d43ba14896dff43cbc167372bc8a0abcad9662cb1e8e04fa3fb6"
+                          authorities="ROLE_ADMIN"/>
+                <sec:user name="user" password="0cd5fb481c41b111d5fd604982a51161d2fdeade5af4c140e9798c7482ed6856"
+                          authorities="ROLE_USER"/>
+            </sec:user-service>
+        </sec:authentication-provider>
+    </sec:authentication-manager>
+
+    <bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller">
+        <property name="mappingLocation" value="classpath:CastorMapping.xml"/>
+        <property name="suppressXsiType" value="true"/>
+    </bean>
+
+    <task:annotation-driven/>
+
+</beans>

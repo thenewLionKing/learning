@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://xmlns.mo.co.uk/mercury/outbound/AgreementEvent" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://xmlns.mo.co.uk/mercury/outbound/AgreementEvent" elementFormDefault="qualified">
+	<xs:complexType name="AgreementEventType">
+		<xs:sequence>
+			<xs:element name="arn" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="agreementId" type="xs:int" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="recordId" type="xs:int" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="eventType" type="xs:string" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="AgreementEvent" type="AgreementEventType"/>
+</xs:schema>

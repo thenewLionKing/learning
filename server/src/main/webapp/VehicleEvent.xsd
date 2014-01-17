@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<xs:schema targetNamespace="http://xmlns.mo.co.uk/mercury/outbound/VehicleEvent" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://xmlns.mo.co.uk/mercury/outbound/VehicleEvent" xmlns:veh="http://xmlns.mo.co.uk/mercury/outbound/VehicleEvent" elementFormDefault="qualified">
+	<xs:element name="VehicleEventType" type="VehicleEventType"/>
+	<xs:complexType name="VehicleEventType">
+		<xs:sequence>
+			<xs:element name="agreementId" type="xs:int" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="assetNumber" type="xs:int" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="vehicleRecordId" type="xs:int" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="agreementRecordId" type="xs:int" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="registrationNumber" type="xs:string" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VehicleEvent" type="veh:VehicleEventType"/>
+</xs:schema>

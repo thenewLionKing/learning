@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-lazy="false"
+	catalog="Enterprise" schema="dbo">
+
+	<sql-query name="domain.entity.generate.key" callable="true">
+		<return-scalar column="next_key" type="java.lang.Integer" />
+		{call GenNextKeyResultSet(?)}
+	</sql-query>
+
+	<sql-query name="domain.entity.search.pin" callable="true">
+		<return-scalar column="pin_id" type="java.lang.Integer" />
+		<return-scalar column="pin" type="java.lang.String" />
+		<!--
+			<return class="uk.co.mo.app.mercuryomain.pin.service.PinBean" >
+			<return-property name="pinId" column="pin_id"/> <return-property
+			name="encryptedPin" column="pin"/> </return>
+		-->
+		{call pwss_findPinByARN_CRN(?,?)}
+	</sql-query>
+	
+	<sql-query name="domain.entity.search.dealer" callable="true">
+		{call pwss_dealer_search(?)}
+	</sql-query>
+	
+	<sql-query name="domain.entity.search.dealer.allDealers" callable="true">
+		{call pwss_get_all_pwss_dealers()}
+	</sql-query>
+	
+	<sql-query name="domain.entity.search.product.allMakes" callable="true">
+		{call pwss_get_all_makes()}
+	</sql-query>
+	
+	<sql-query name="domain.agreement.search.pws" callable="true">
+		<!--
+			return-scalar column="start_date" type="java.util.Date"/>
+			<return-scalar column="end_date" type="java.util.Date"/>
+			<return-scalar column="application_submit_date"
+			type="java.util.Date"/> <return-scalar column="record_date"
+			type="java.util.Date"/
+		-->
+		{call pwss_get_agreement(?)}
+	</sql-query>
+
+	<sql-query name="domain.agreement.scheme" callable="true">
+        <return-scalar column="scheme_type" type="java.lang.Short" />
+		{call get_agreement_scheme(?, ?, ?)}
+    </sql-query>
+
+	<sql-query name="domain.agreement.search.pws.finance"
+		callable="true">
+		{call pwss_get_finance_agreement(?)}
+    </sql-query>
+    
+    <sql-query name="domain.pin.check.authenticated"
+		callable="true">
+		<return-scalar column="authenticated" type="java.lang.Boolean" />
+		{call     pwss_is_pin_authenticated_for_ARN_CRN(?,?)}
+    </sql-query>
+	<sql-query name="domain.entity.search.customer" callable="true">
+		<!-- <return alias="cust"  class="uk.co.mo.data.Person" >
+			<return-property name="referenceNumber" column="cust.referenceNumber"/>
+			<return-property name="crn" column="cust.crn"/>  
+			<return-property name="firstname" column="cust.firstname"/>
+			<return-property name="lastname" column="cust.lastname"/>
+			<return-property name="middlename" column="cust.middlename"/>
+			<return-property name="nino" column="cust.nino"/>
+			<return-property name="title" column="cust.title"/>
+			<return-property name="dateOfBirth" column="cust.DOB"/>    
+		</return>   -->
+		{call pwss_customer_match_search(?,?)}
+	</sql-query>	
+		
+
+	<sql-query name="live_customer">
+		<return-scalar column="crn" type="java.lang.String" />
+		SELECT CRN FROM CUSTOMERS customer, AGREEMENTS ag WHERE CRN = ? AND
+		ag.DISABLED_PERSON1_ID = customer.CUSTOMER_ID AND ag.AGREEMENT_STATUS
+		IN (0,1,3,5,6,7,8)
+	</sql-query>
+
+    <sql-query name="domain.product.desc">
+		<return-scalar column="descr" type="java.lang.String" />
+		SELECT dbo.getProductDescription(po.product_code) as descr FROM PRODUCT_OFFERING po WHERE po.ID = ?
+	</sql-query>
+
+    <sql-query name="domain.invoice.payment.pws" callable="true">
+        <return-scalar column="payment_type" type="java.lang.Short" />
+        <return-scalar column="payment" type="java.math.BigDecimal" />
+		{call pwss_get_supply_incentives_payments(?, ?)}
+	</sql-query>
+
+    <sql-query name="domain.agreement.autolive">
+		<return-scalar column="arn" type="java.lang.String" />
+		{call pwss_autolive_agreements}
+	</sql-query>
+	
+	<sql-query name="domain.agreement.isvoided">
+		select agreement_id from void_agreements where arn = ? order by agreement_id desc
+	</sql-query>
+	
+	<sql-query name="domain.agreement.preterminfo">
+		select termination_type from VRM_PRE_TERM_INFO where agreement_id = ?
+	</sql-query>
+
+    <sql-query name="domain.invoice.vat">
+		<return-scalar column="vat_rate" type="java.math.BigDecimal" />
+        {call proc_get_VAT_rate_resultset(?)}
+	</sql-query>
+
+    <sql-query name="domain.customer.search.suspensions" callable="true">
+		{call dbo.pwss_get_customer_suspensions(?)}
+	</sql-query>
+	<sql-query name="domain.customer.search.agreementHistory" callable="true">
+		{call dbo.pwss_get_customer_agreement_history(?)}
+	</sql-query>
+	<sql-query name="domain.customer.version" callable="false">
+		{call dbo.pwss_customer_version_update(?,?)}
+	</sql-query>	
+	<sql-query name="domain.agreement.search" callable="true">
+		{call dbo.pwss_agreement_search(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}
+	</sql-query>
+
+	<sql-query name="domain.entity.search.working.day">
+            <return-scalar column="LnB" type="java.lang.String" />
+            <return-scalar column="NIC" type="java.lang.String" />
+            <return-scalar column="ScC" type="java.lang.String" />
+		select LnB, NIC, ScC from WorkingDay_Data where Calendar_Date = ?
+	</sql-query>
+</hibernate-mapping>

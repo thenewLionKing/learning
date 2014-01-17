@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--bean name="/1.0/agreement/AgreementService"
+          class="uk.co.mo.app.mercury.cs.remoting.support.AsyncHttpInvokerServiceExporter">
+        <property name="service" ref="agreementService"/>
+        <property name="serviceInterface" value="uk.co.mo.app.mercury.domain.agreement.service.AgreementService"/>
+        <property name="batchService" ref="serverBatchService"/>
+        <property name="invocation" ref="asyncInvocation"/>
+    </bean>
+    
+    <bean name="/1.0/agreement/AgreementSearchService"
+          class="uk.co.mo.app.mercury.cs.remoting.support.AspectEnabledHttpInvokerServiceExporter">
+        <property name="service" ref="agreementSearchService"/>
+        <property name="serviceInterface" value="uk.co.mo.app.mercury.domain.agreement.service.AgreementSearchService"/>
+    </bean>
+
+    <bean name="/1.0/customer/CustomerService"
+          class="uk.co.mo.app.mercury.cs.remoting.support.AsyncHttpInvokerServiceExporter">
+        <property name="service" ref="customerService"/>
+        <property name="serviceInterface" value="uk.co.mo.app.mercury.domain.customer.service.CustomerService"/>
+        <property name="batchService" ref="serverBatchService"/>
+        <property name="invocation" ref="asyncInvocation"/>
+    </bean>
+
+    <bean name="/1.0/customer/CustomerSearchService"
+          class="uk.co.mo.app.mercury.cs.remoting.support.AsyncHttpInvokerServiceExporter">
+        <property name="service" ref="customerSearchService"/>
+        <property name="serviceInterface" value="uk.co.mo.app.mercury.domain.customer.service.CustomerSearchService"/>
+        <property name="batchService" ref="serverBatchService"/>
+        <property name="invocation" ref="asyncInvocation"/>
+    </bean>
+
+    <bean name="/1.0/ClientBatchService"
+          class="uk.co.mo.app.mercury.cs.remoting.support.AspectEnabledHttpInvokerServiceExporter">
+        <property name="service" ref="serverBatchService"/>
+        <property name="serviceInterface" value="uk.co.mo.app.mercury.client.ClientBatchService"/>
+    </bean>
+
+    <bean name="/1.0/product/ProductService" class="uk.co.mo.app.mercury.cs.remoting.support.AsyncHttpInvokerServiceExporter">
+        <property name="service" ref="productService"/>
+        <property name="serviceInterface" value="uk.co.mo.app.mercury.domain.product.service.ProductService"/>
+        <property name="batchService" ref="serverBatchService"/>
+        <property name="invocation" ref="asyncInvocation"/>
+    </bean>
+
+    <bean name="/1.0/product/pricing/PricingService"
+          class="uk.co.mo.app.mercury.cs.remoting.support.AsyncHttpInvokerServiceExporter">
+        <property name="service" ref="pricingService"/>
+        <property name="serviceInterface" value="uk.co.mo.app.mercury.domain.product.pricing.service.PricingService"/>
+        <property name="batchService" ref="serverBatchService"/>
+        <property name="invocation" ref="asyncInvocation"/>
+    </bean>
+
+    <bean name="/1.0/pin/RemotePinService" class="uk.co.mo.app.mercury.cs.remoting.support.AsyncHttpInvokerServiceExporter">
+        <property name="service" ref="pinService"/>
+        <property name="serviceInterface" value="uk.co.mo.app.mercury.domain.pin.service.PinService"/>
+        <property name="batchService" ref="serverBatchService"/>
+        <property name="invocation" ref="asyncInvocation"/>
+    </bean>
+
+    <bean name="/1.0/agreement/ApplicationProcessService"
+          class="uk.co.mo.app.mercury.cs.remoting.support.AspectEnabledHttpInvokerServiceExporter">
+        <property name="service" ref="applicationProcessService"/>
+        <property name="serviceInterface"
+                  value="uk.co.mo.app.mercury.domain.agreement.service.ApplicationProcessService"/>
+    </bean>
+
+    <bean name="/1.0/document/ClientDocumentService"
+          class="uk.co.mo.app.mercury.cs.remoting.support.AspectEnabledHttpInvokerServiceExporter">
+        <property name="service" ref="documentService"/>
+        <property name="serviceInterface" value="uk.co.mo.app.mercury.document.service.ClientDocumentService"/>
+    </bean>
+
+    <bean name="/1.0/dealer/DealerService"
+          class="uk.co.mo.app.mercury.cs.remoting.support.AspectEnabledHttpInvokerServiceExporter">
+        <property name="service" ref="dealerService"/>
+        <property name="serviceInterface" value="uk.co.mo.app.mercury.domain.dealer.service.DealerService"/>
+    </bean>
+
+    <bean name="/1.0/product/ProductMakeService"
+          class="uk.co.mo.app.mercury.cs.remoting.support.AspectEnabledHttpInvokerServiceExporter">
+        <property name="service" ref="productMakeService"/>
+        <property name="serviceInterface" value="uk.co.mo.app.mercury.domain.product.service.ProductMakeService"/>
+    </bean>
+
+    <bean name="/1.0/mdp/PwsMdpInvoiceService"
+          class="uk.co.mo.app.mercury.cs.remoting.support.AspectEnabledHttpInvokerServiceExporter">
+        <property name="service" ref="pwsMdpInvoiceService"/>
+        <property name="serviceInterface" value="uk.co.mo.app.mercury.domain.mdp.service.PwsMdpInvoiceService"/>
+    </bean>
+
+    <bean name="/1.0/mdp/PwsMdpWorkingDayService"
+          class="uk.co.mo.app.mercury.cs.remoting.support.AspectEnabledHttpInvokerServiceExporter">
+        <property name="service" ref="pwsMdpWorkingDayService"/>
+        <property name="serviceInterface" value="uk.co.mo.app.mercury.domain.mdp.service.PwsMdpWorkingDayService"/>
+    </bean>
+
+    <bean id="asyncInvocation" class="uk.co.mo.app.mercury.cs.remoting.support.ThreadedInvocation"/-->
+</beans>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-lazy="false">
+     <sql-query name="domain.priceprofile.generate.key" callable="true">
+        <return-scalar column="next_key" type="java.lang.Integer"/>
+        {call GenNextKeyResultSet(?)}
+    </sql-query>
+</hibernate-mapping>

@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE mapping PUBLIC "-//EXOLAB/Castor Mapping DTD Version 1.0//EN"
+                         "http://castor.org/mapping.dtd">
+<mapping>
+
+    <field-handler name="dateTimeHandler" class="uk.co.mo.app.mercury.domain.agreement.event.AgreementEventDateHandler">
+      <param name="date-format" value="yyyy-MM-dd HH:mm:ss.SSS"/>
+   </field-handler>
+
+    <class name="uk.co.mo.app.mercury.domain.event.AgreementEvent">
+        <map-to xml="MercuryEvent" ns-uri="http://xmlns.mo.co.uk/mercury/outbound/Event" ns-prefix="e"/>
+
+        <field name="type" type="uk.co.mo.app.mercury.domain.event.AgreementEventType">
+            <bind-xml name="AgreementEvent" location="event"/>
+        </field>
+
+        <field name="key" type="uk.co.mo.app.mercury.domain.event.EventKey">
+            <bind-xml name="eventMetaData"/>
+        </field>
+
+    </class>
+
+    <class name="uk.co.mo.app.mercury.domain.event.AgreementEventType">
+
+        <map-to xml="AgreementEvent" ns-uri="http://xmlns.mo.co.uk/mercury/outbound/AgreementEvent" ns-prefix="agr"/>
+
+        <field name="arn" type="string">
+            <bind-xml name="arn" node="element"/>
+        </field>
+
+        <field name="agreementId" type="java.lang.Integer">
+            <bind-xml name="agreementId" node="element"/>
+        </field>
+
+        <field name="recordId" type="java.lang.Integer">
+            <bind-xml name="recordId" node="element"/>
+        </field>
+
+        <field name="eventType" type="string">
+            <bind-xml name="eventType" node="element"/>
+        </field>
+    </class>
+
+    <class name="uk.co.mo.app.mercury.domain.event.CustomerEvent">
+        <map-to xml="MercuryEvent" ns-uri="http://xmlns.mo.co.uk/mercury/outbound/Event" ns-prefix="e"/>
+
+        <field name="type" type="uk.co.mo.app.mercury.domain.event.CustomerEventType">
+            <bind-xml name="CustomerEvent" location="event"/>
+        </field>
+
+        <field name="key" type="uk.co.mo.app.mercury.domain.event.EventKey">
+            <bind-xml name="eventMetaData"/>
+        </field>
+
+    </class>
+
+    <class name="uk.co.mo.app.mercury.domain.event.CustomerEventType">
+        <map-to xml="CustomerEvent" ns-uri="http://xmlns.mo.co.uk/mercury/outbound/CustomerEvent" ns-prefix="cus"/>
+ 
+        <field name="arn" type="string">
+            <bind-xml name="arn" node="element"/>
+        </field>
+
+        <field name="crn" type="string">
+            <bind-xml name="crn" node="element"/>
+        </field>
+    
+    	<field name="customerId" type="java.lang.Integer">
+            <bind-xml name="customerId" node="element"/>
+        </field>
+        
+        <field name="agreementId" type="java.lang.Integer">
+            <bind-xml name="agreementId" node="element"/>
+        </field>
+
+        <field name="recordId" type="java.lang.Integer">
+            <bind-xml name="recordId" node="element"/>
+        </field>
+    </class>
+
+    <class name="uk.co.mo.app.mercury.domain.event.VehicleEvent">
+        <map-to xml="MercuryEvent" ns-uri="http://xmlns.mo.co.uk/mercury/outbound/Event" ns-prefix="e"/>
+
+        <field name="type" type="uk.co.mo.app.mercury.domain.event.VehicleEventType">
+            <bind-xml name="VehicleEvent" location="event"/>
+        </field>
+
+        <field name="key" type="uk.co.mo.app.mercury.domain.event.EventKey">
+            <bind-xml name="eventMetaData"/>
+        </field>
+
+    </class>
+
+    <class name="uk.co.mo.app.mercury.domain.event.VehicleEventType">
+        <map-to xml="VehicleEvent" ns-uri="http://xmlns.mo.co.uk/mercury/outbound/VehicleEvent" ns-prefix="veh"/>
+ 
+        <field name="agreementId" type="java.lang.Integer">
+            <bind-xml name="agreementId" node="element"/>
+        </field>
+
+        <field name="assetNumber" type="java.lang.Integer">
+            <bind-xml name="assetNumber" node="element"/>
+        </field>
+
+        <field name="vehicleRecordId" type="java.lang.Integer">
+            <bind-xml name="vehicleRecordId" node="element"/>
+        </field>
+        
+        <field name="agreementRecordId" type="java.lang.Integer">
+            <bind-xml name="agreementRecordId" node="element"/>
+        </field>
+        
+        <field name="registrationNumber" type="string">
+            <bind-xml name="registrationNumber" node="element"/>
+        </field>
+        
+    </class>
+
+    <class name="uk.co.mo.app.mercury.domain.event.ScanningEvent">
+        <map-to xml="MercuryEvent" ns-uri="http://xmlns.mo.co.uk/mercury/outbound/Event" ns-prefix="e"/>
+
+        <field name="type" type="uk.co.mo.app.mercury.domain.event.ScanningEventType">
+            <bind-xml name="ScanningEvent" location="event"/>
+        </field>
+
+        <field name="key" type="uk.co.mo.app.mercury.domain.event.EventKey">
+            <bind-xml name="eventMetaData"/>
+        </field>
+
+    </class>
+
+    <class name="uk.co.mo.app.mercury.domain.event.ScanningEventType">
+        <map-to xml="ScanningEvent" ns-uri="http://xmlns.mo.co.uk/mercury/outbound/ScanningEvent" ns-prefix="sca"/>
+<!--  
+        <field name="agreementId" type="java.lang.Integer">
+            <bind-xml name="agreementId" node="element"/>
+        </field>
+
+        <field name="assetNumber" type="java.lang.Integer">
+            <bind-xml name="assetNumber" node="element"/>
+        </field>
+
+    	<field name="customerId" type="java.lang.Integer">
+            <bind-xml name="customerId" node="element"/>
+        </field>
+
+        <field name="recordId" type="java.lang.Integer">
+            <bind-xml name="recordId" node="element"/>
+        </field> -->
+
+        <field name="docNumber" type="string">
+            <bind-xml name="docNumber" node="element"/>
+        </field>
+    </class>
+
+
+    <class name="uk.co.mo.app.mercury.domain.event.EventKey">
+
+        <map-to xml="eventMetaData" ns-uri="http://xmlns.mo.co.uk/mercury/outbound/Event" ns-prefix="e"/>
+
+        <field name="eventId" type="string">
+            <bind-xml name="event-id" node="element" type="string"/>
+        </field>
+        <field name="eventTypeId" type="java.lang.Short">
+            <bind-xml name="event-type-id" node="element"/>
+        </field>
+        <field name="eventDate" type="string" handler="dateTimeHandler">
+            <bind-xml name="event-date" node="element" type="string"/>
+        </field>
+    </class>
+
+
+</mapping>
